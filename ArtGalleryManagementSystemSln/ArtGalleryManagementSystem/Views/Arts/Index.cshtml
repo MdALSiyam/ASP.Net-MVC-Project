@@ -1,0 +1,63 @@
+﻿@model IEnumerable<ArtGalleryManagementSystem.Art>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Art List</h2>
+<div class="d-flex justify-content-end mb-2">
+    <a href="@Url.Action("Create","Arts")" class="btn btn-outline-primary">Add New Art</a>
+</div>
+<div>
+    @foreach (var item in Model)
+    {
+        <div class="card mb-2">
+            <div class="card-header justify-content-between d-flex">
+
+                <div class="col-10">
+                    <label class="mr-2"><b>Art Title : </b>@Html.DisplayFor(x => item.ArtTitle)</label><br />
+                    <label class="mr-2"><b>Artist Name : </b>@Html.DisplayFor(x => item.ArtistName)</label><br />
+                    <label class="mr-2"><b>Price : </b>@Html.DisplayFor(x => item.Price)</label><br />
+                    <label class="mr-2"><b>Discount : </b>@Html.DisplayFor(x => item.Discount)</label><br />
+                    <label class="mr-2"><b>Available ? </b>@Html.DisplayFor(x => item.IsAvailable)</label><br />
+                    <label class="mr-2"><b>Date Of Creation : </b>@Html.DisplayFor(x => item.DateOfCreation)</label><br />
+                </div>
+
+                <div class="col-2 d-flex justify-content-end">
+                    <div>
+                        <img src="@item.Picture" alt="Default" width="160" height="120" class="rounded" />
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered table-striped table-sm">
+                    <thead class="table-primary">
+                        <tr>
+                            <th>Exhibition ID</th>
+                            <th>Exhibition Name</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var dr in item.DataRelations)
+                        {
+                            <tr>
+                                <td>@Html.DisplayFor(x => dr.ExhibitionID)</td>
+                                <td>@Html.DisplayFor(x => dr.Exhibition.ExhibitionName)</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="card-footer d-flex justify-content-end">
+                <a href="@Url.Action("Edit","Arts",new {id=item.ArtID})" class="btn btn-warning">Edit</a>_
+                <form method="post" action="@Url.Action("Delete","Arts",new {id = item.ArtID})"
+                      onsubmit="return confirm('You want to delete this record')" style="display:inline">
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </div>
+        </div>
+    }
+</div>
+
+

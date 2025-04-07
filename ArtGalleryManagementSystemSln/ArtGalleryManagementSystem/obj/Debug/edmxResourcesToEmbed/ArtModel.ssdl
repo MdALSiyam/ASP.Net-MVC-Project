@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ArtGalleryDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Art">
+    <Key>
+      <PropertyRef Name="ArtID" />
+    </Key>
+    <Property Name="ArtID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ArtTitle" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="ArtistName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="DateOfCreation" Type="datetime" Nullable="false" />
+    <Property Name="Price" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="Discount" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="IsAvailable" Type="bit" Nullable="false" />
+    <Property Name="Picture" Type="varchar(max)" />
+  </EntityType>
+  <EntityType Name="DataRelation">
+    <Key>
+      <PropertyRef Name="RelationID" />
+    </Key>
+    <Property Name="RelationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ArtID" Type="int" Nullable="false" />
+    <Property Name="ExhibitionID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Exhibition">
+    <Key>
+      <PropertyRef Name="ExhibitionID" />
+    </Key>
+    <Property Name="ExhibitionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ExhibitionName" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__DataRelat__ArtID__3A81B327">
+    <End Role="Art" Type="Self.Art" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="DataRelation" Type="Self.DataRelation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Art">
+        <PropertyRef Name="ArtID" />
+      </Principal>
+      <Dependent Role="DataRelation">
+        <PropertyRef Name="ArtID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__DataRelat__Exhib__3B75D760">
+    <End Role="Exhibition" Type="Self.Exhibition" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="DataRelation" Type="Self.DataRelation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Exhibition">
+        <PropertyRef Name="ExhibitionID" />
+      </Principal>
+      <Dependent Role="DataRelation">
+        <PropertyRef Name="ExhibitionID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ArtGalleryDBModelStoreContainer">
+    <EntitySet Name="Art" EntityType="Self.Art" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DataRelation" EntityType="Self.DataRelation" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Exhibition" EntityType="Self.Exhibition" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__DataRelat__ArtID__3A81B327" Association="Self.FK__DataRelat__ArtID__3A81B327">
+      <End Role="Art" EntitySet="Art" />
+      <End Role="DataRelation" EntitySet="DataRelation" />
+    </AssociationSet>
+    <AssociationSet Name="FK__DataRelat__Exhib__3B75D760" Association="Self.FK__DataRelat__Exhib__3B75D760">
+      <End Role="Exhibition" EntitySet="Exhibition" />
+      <End Role="DataRelation" EntitySet="DataRelation" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

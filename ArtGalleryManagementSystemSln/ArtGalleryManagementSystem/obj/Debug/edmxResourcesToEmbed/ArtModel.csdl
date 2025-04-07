@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ArtGalleryDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Art">
+    <Key>
+      <PropertyRef Name="ArtID" />
+    </Key>
+    <Property Name="ArtID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ArtTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ArtistName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="DateOfCreation" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Price" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="Discount" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="IsAvailable" Type="Boolean" Nullable="false" />
+    <Property Name="Picture" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="DataRelations" Relationship="Self.FK__DataRelat__ArtID__3A81B327" FromRole="Art" ToRole="DataRelation" />
+  </EntityType>
+  <EntityType Name="DataRelation">
+    <Key>
+      <PropertyRef Name="RelationID" />
+    </Key>
+    <Property Name="RelationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ArtID" Type="Int32" Nullable="false" />
+    <Property Name="ExhibitionID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Art" Relationship="Self.FK__DataRelat__ArtID__3A81B327" FromRole="DataRelation" ToRole="Art" />
+    <NavigationProperty Name="Exhibition" Relationship="Self.FK__DataRelat__Exhib__3B75D760" FromRole="DataRelation" ToRole="Exhibition" />
+  </EntityType>
+  <EntityType Name="Exhibition">
+    <Key>
+      <PropertyRef Name="ExhibitionID" />
+    </Key>
+    <Property Name="ExhibitionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ExhibitionName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="DataRelations" Relationship="Self.FK__DataRelat__Exhib__3B75D760" FromRole="Exhibition" ToRole="DataRelation" />
+  </EntityType>
+  <Association Name="FK__DataRelat__ArtID__3A81B327">
+    <End Role="Art" Type="Self.Art" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="DataRelation" Type="Self.DataRelation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Art">
+        <PropertyRef Name="ArtID" />
+      </Principal>
+      <Dependent Role="DataRelation">
+        <PropertyRef Name="ArtID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__DataRelat__Exhib__3B75D760">
+    <End Role="Exhibition" Type="Self.Exhibition" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="DataRelation" Type="Self.DataRelation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Exhibition">
+        <PropertyRef Name="ExhibitionID" />
+      </Principal>
+      <Dependent Role="DataRelation">
+        <PropertyRef Name="ExhibitionID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ArtGalleryDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Arts" EntityType="Self.Art" />
+    <EntitySet Name="DataRelations" EntityType="Self.DataRelation" />
+    <EntitySet Name="Exhibitions" EntityType="Self.Exhibition" />
+    <AssociationSet Name="FK__DataRelat__ArtID__3A81B327" Association="Self.FK__DataRelat__ArtID__3A81B327">
+      <End Role="Art" EntitySet="Arts" />
+      <End Role="DataRelation" EntitySet="DataRelations" />
+    </AssociationSet>
+    <AssociationSet Name="FK__DataRelat__Exhib__3B75D760" Association="Self.FK__DataRelat__Exhib__3B75D760">
+      <End Role="Exhibition" EntitySet="Exhibitions" />
+      <End Role="DataRelation" EntitySet="DataRelations" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

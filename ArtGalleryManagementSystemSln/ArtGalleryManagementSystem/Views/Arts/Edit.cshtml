@@ -1,0 +1,84 @@
+﻿@model ArtGalleryManagementSystem.ViewModels.ArtViewModel
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit Art</h2>
+<div class="d-flex justify-content-end">
+    <a href="@Url.Action("Index","Arts")" class="btn btn-outline-primary">Back To Art List</a>
+</div>
+
+@using (Html.BeginForm("Edit", "Arts", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="row">
+        <div class="col-6">
+            <h3>Art Information</h3>
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(x => x.ArtID)
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="mb-3">
+                @Html.LabelFor(x => x.ArtTitle, htmlAttributes: new { @class = "control-lable col-3" })
+                @Html.EditorFor(x => x.ArtTitle, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(x => x.ArtTitle, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="mb-3">
+                @Html.LabelFor(x => x.ArtistName, htmlAttributes: new { @class = "control-lable col-3" })
+                @Html.EditorFor(x => x.ArtistName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(x => x.ArtistName, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="mb-3">
+                @Html.LabelFor(x => x.DateOfCreation, htmlAttributes: new { @class = "control-lable col-3" })
+                @Html.EditorFor(x => x.DateOfCreation, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(x => x.DateOfCreation, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="mb-3">
+                @Html.LabelFor(x => x.Price, htmlAttributes: new { @class = "control-lable col-3" })
+                @Html.EditorFor(x => x.Price, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(x => x.Price, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="mb-3">
+                @Html.LabelFor(x => x.Discount, htmlAttributes: new { @class = "control-lable col-3" })
+                @Html.EditorFor(x => x.Discount, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(x => x.Discount, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="mb-3">
+                @Html.LabelFor(x => x.IsAvailable, htmlAttributes: new { @class = "control-lable col-3" })
+                @Html.EditorFor(x => x.IsAvailable)
+                @*@Html.ValidationMessageFor(x => x.IsAvailable, "", new { @class = "text-danger" })*@
+            </div>
+
+            <div class="mb-3">
+                <img src="@Model.Picture" id="Imgfile" alt="Default" width="150" height="100" class="rounded mb-2" />
+                <div>
+                    <input onchange="ReadUrl(this)" type="file" id="uploadImage" name="PicturePath" style="display:none" />
+                    <label for="uploadImage" class="btn"><b> Upload Image Here</b></label>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-6">
+            <h3>Add Exhibition Name</h3>
+            <div class="d-flex justify-content-end">
+                <a href="#" id="btnPlus" style="width:100px" class="btn btn-warning">Add</a>
+            </div>
+            <div class="ExhibitionContainer">
+                @foreach (var item in Model.ExhibitionList)
+                {
+                    @Html.Action("AddExhibitions", "Arts", new { id = item })
+                }
+            </div>
+        </div>
+    </div>
+    <div class="d-flex justify-content-end">
+        <input type="submit" value="Update" class="btn btn-warning" />
+    </div>
+}
+
+@Html.ActionLink("Back to List", "Index")
+

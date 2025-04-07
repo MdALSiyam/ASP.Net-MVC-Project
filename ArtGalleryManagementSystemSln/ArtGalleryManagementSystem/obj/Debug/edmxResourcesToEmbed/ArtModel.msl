@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ArtGalleryDBModelStoreContainer" CdmEntityContainer="ArtGalleryDBEntities">
+    <EntitySetMapping Name="Arts">
+      <EntityTypeMapping TypeName="ArtGalleryDBModel.Art">
+        <MappingFragment StoreEntitySet="Art">
+          <ScalarProperty Name="ArtID" ColumnName="ArtID" />
+          <ScalarProperty Name="ArtTitle" ColumnName="ArtTitle" />
+          <ScalarProperty Name="ArtistName" ColumnName="ArtistName" />
+          <ScalarProperty Name="DateOfCreation" ColumnName="DateOfCreation" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Discount" ColumnName="Discount" />
+          <ScalarProperty Name="IsAvailable" ColumnName="IsAvailable" />
+          <ScalarProperty Name="Picture" ColumnName="Picture" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DataRelations">
+      <EntityTypeMapping TypeName="ArtGalleryDBModel.DataRelation">
+        <MappingFragment StoreEntitySet="DataRelation">
+          <ScalarProperty Name="RelationID" ColumnName="RelationID" />
+          <ScalarProperty Name="ArtID" ColumnName="ArtID" />
+          <ScalarProperty Name="ExhibitionID" ColumnName="ExhibitionID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Exhibitions">
+      <EntityTypeMapping TypeName="ArtGalleryDBModel.Exhibition">
+        <MappingFragment StoreEntitySet="Exhibition">
+          <ScalarProperty Name="ExhibitionID" ColumnName="ExhibitionID" />
+          <ScalarProperty Name="ExhibitionName" ColumnName="ExhibitionName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
