@@ -1,4 +1,4 @@
-## Project Output Screenshots
+## Project Output
 
 ![MVC 1](mvc1.png)
 ![MVC 2](mvc2.png)
